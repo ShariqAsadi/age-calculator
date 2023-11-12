@@ -1,7 +1,7 @@
-import IconArrow from '@/assets/images/icon-arrow.svg'
+import IconArrow from '@/assets/images/icon-arrow.svg';
 
 interface SeparatorButtonProps {
-  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 export default function SeparatorButton({ onClick }: SeparatorButtonProps) {
@@ -16,5 +16,5 @@ export default function SeparatorButton({ onClick }: SeparatorButtonProps) {
         <img src={IconArrow} alt="arrow icon" />
       </button>
     </div>
-  )
+  );
 }
