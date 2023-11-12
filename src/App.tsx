@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Input from '@/components/Input';
 import SeparatorButton from '@/components/SeparatorButton';
 import AgeCounter from '@/components/AgeCounter';
+import { calculateAge } from './utils';
 
 export default function App() {
   const [shouldStartCounter, setShouldStartCounter] = useState(false);
@@ -10,8 +11,6 @@ export default function App() {
   const [age, setAge] = useState({ years: 0, months: 0, days: 0 });
 
   const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log({ value: event.target.value, name: event.target.name });
-
     setDateOfBirth({
       ...dateOfBirth,
       [event.target.name]: event.target.value
@@ -24,10 +23,14 @@ export default function App() {
       | React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
+    const { year, month, day } = dateOfBirth;
+    const { ageInDays, ageInMonths, ageInYears } = calculateAge(
+      `${year}-${month}-${day}`
+    );
 
     // TODO Validation
-    // setAge({ years: 38, months: 3, days: 26 })
-    // setShouldStartCounter(true)
+    setAge({ years: ageInYears, months: ageInMonths, days: ageInDays });
+    setShouldStartCounter(true);
   };
 
   return (
@@ -62,16 +65,19 @@ export default function App() {
           label="years"
           count={age.years}
           shouldStartCounter={shouldStartCounter}
+          resetCounter={() => setShouldStartCounter(false)}
         />
         <AgeCounter
           label="months"
           count={age.months}
           shouldStartCounter={shouldStartCounter}
+          resetCounter={() => setShouldStartCounter(false)}
         />
         <AgeCounter
           label="days"
           count={age.days}
           shouldStartCounter={shouldStartCounter}
+          resetCounter={() => setShouldStartCounter(false)}
         />
       </section>
     </main>

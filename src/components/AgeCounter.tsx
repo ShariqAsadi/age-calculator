@@ -5,12 +5,14 @@ interface AgeCounterProps {
   count: number;
   label: string;
   shouldStartCounter: boolean;
+  resetCounter: () => void;
 }
 
 export default function AgeCounter({
   count,
   label,
-  shouldStartCounter
+  shouldStartCounter,
+  resetCounter
 }: AgeCounterProps) {
   const countUpRef = useRef(null);
   const { start } = useCountUp({
@@ -21,7 +23,10 @@ export default function AgeCounter({
   });
 
   useEffect(() => {
-    if (shouldStartCounter) start();
+    if (shouldStartCounter) {
+      start();
+      resetCounter();
+    }
   }, [shouldStartCounter]);
 
   return (
