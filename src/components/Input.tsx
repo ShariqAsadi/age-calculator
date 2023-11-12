@@ -1,6 +1,4 @@
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string
-}
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 export default function Input(props: InputProps) {
   return (
@@ -9,7 +7,7 @@ export default function Input(props: InputProps) {
         htmlFor={props.id}
         className="text-sm font-bold uppercase leading-normal tracking-[3.5px] text-smokey-grey"
       >
-        {props.label}
+        {props.name}
       </label>
       <input
         {...props}
