@@ -8,7 +8,6 @@
     "email": "shariq.asadi@gmail.com",
     "url": "https://github.com/ShariqAsadi"
   },
-  
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -20,6 +19,7 @@
   },
   "dependencies": {
     "react": "^18.2.0",
+    "react-countup": "^6.5.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
