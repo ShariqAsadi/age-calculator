@@ -27,11 +27,11 @@ export default function AgeCounter({
       start();
       resetCounter();
     }
-  }, [shouldStartCounter]);
+  }, [shouldStartCounter, resetCounter, start]);
 
   return (
-    <div className="flex gap-2 text-[104px] italic leading-[110%] tracking-[-2.08px] font-extrabold">
-      <p className="text-purple tabular-nums" ref={countUpRef}>
+    <div className="flex gap-2 text-[104px] font-extrabold italic leading-[110%] tracking-[-2.08px]">
+      <p className="tabular-nums text-purple" ref={countUpRef}>
         {count || '- -'}
       </p>
       <p className="text-off-black">{label}</p>

@@ -30,7 +30,7 @@ export default function Input(props: InputProps) {
         )}
       />
       {error && (
-        <p className="text-sm text-light-red italic font-normal">{error}</p>
+        <p className="text-sm font-normal italic text-light-red">{error}</p>
       )}
     </div>
   );
