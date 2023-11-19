@@ -53,11 +53,37 @@ export const validateErrors = (dateOfBirth: DateOfBirth) => {
     day: ''
   };
 
+  const { day, month, year } = dateOfBirth;
+  const currentDate = new Date();
+  const birthDate = new Date(`${year}-${month}-${day}`);
+  const isBirthDateInTheFuture = birthDate > currentDate;
+  const daysInAGivenMonth = new Date(
+    birthDate.getFullYear(),
+    birthDate.getMonth() + 1,
+    0
+  ).getDate();
+
   // Check for if any value is empty
   for (const [date, value] of Object.entries(dateOfBirth)) {
     if (!value) {
       errors = { ...errors, [date]: 'This field is required' };
     }
+
+    if (date === 'day' && (value < 1 || value > 31) && !errors.day) {
+      errors = { ...errors, day: 'Must be a valid day' };
+    }
+
+    if (date === 'month' && (value < 1 || value > 12) && !errors.month) {
+      errors = { ...errors, month: 'Must be a valid month' };
+    }
+  }
+
+  if (isBirthDateInTheFuture) {
+    errors = { ...errors, year: 'Must be in the past' };
+  }
+
+  if (isNaN(daysInAGivenMonth)) {
+    errors = { ...errors, day: 'Must be a valid date' };
   }
 
   return errors;
