@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import Input from '@/components/Input';
 import SeparatorButton from '@/components/SeparatorButton';
-import AgeCounter from '@/components/AgeCounter';
 import { calculateAge, validateErrors, hasErrors } from '@/utils';
+import AgeViewer from './components/AgeViewer';
+import AgeInput from './components/AgeInput';
 
 export default function App() {
   const [shouldStartCounter, setShouldStartCounter] = useState(false);
@@ -46,50 +46,18 @@ export default function App() {
     <main className="flex h-screen flex-col items-center justify-center bg-light-grey font-body">
       <section className="flex w-[840px] flex-col rounded-3xl rounded-br-[200px] bg-white p-14">
         <form onSubmit={handleFormSubmit} className="flex gap-8">
-          <Input
-            id="day"
-            name="day"
-            placeholder="DD"
-            onChange={handleAgeChange}
-            value={dateOfBirth.day || ''}
-            error={errors.day}
-          />
-          <Input
-            id="month"
-            name="month"
-            placeholder="MM"
-            onChange={handleAgeChange}
-            value={dateOfBirth.month || ''}
-            error={errors.month}
-          />
-          <Input
-            id="year"
-            name="year"
-            placeholder="YYYY"
-            onChange={handleAgeChange}
-            value={dateOfBirth.year || ''}
-            error={errors.year}
+          <AgeInput
+            dateOfBirth={dateOfBirth}
+            errors={errors}
+            handleAgeChange={handleAgeChange}
           />
           <input type="submit" className="hidden" />
         </form>
         <SeparatorButton onClick={handleFormSubmit} />
-        <AgeCounter
-          label="years"
-          count={age.years}
+        <AgeViewer
           shouldStartCounter={shouldStartCounter}
-          resetCounter={() => setShouldStartCounter(false)}
-        />
-        <AgeCounter
-          label="months"
-          count={age.months}
-          shouldStartCounter={shouldStartCounter}
-          resetCounter={() => setShouldStartCounter(false)}
-        />
-        <AgeCounter
-          label="days"
-          count={age.days}
-          shouldStartCounter={shouldStartCounter}
-          resetCounter={() => setShouldStartCounter(false)}
+          age={age}
+          setShouldStartCounter={setShouldStartCounter}
         />
       </section>
     </main>
