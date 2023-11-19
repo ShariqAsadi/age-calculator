@@ -1,5 +1,16 @@
-export function classNames(...classes: unknown[]): string {
-  return classes.filter(Boolean).join(' ');
+import clsx, { ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+interface DateOfBirth {
+  year: number;
+  month: number;
+  day: number;
+}
+
+interface Validations {
+  year: string;
+  month: string;
+  day: string;
 }
 
 export function calculateAge(dateOfBirth: string) {
@@ -34,3 +45,26 @@ export function calculateAge(dateOfBirth: string) {
 
   return { ageInYears, ageInMonths, ageInDays };
 }
+
+export const validateErrors = (dateOfBirth: DateOfBirth) => {
+  let errors = {
+    year: '',
+    month: '',
+    day: ''
+  };
+
+  // Check for if any value is empty
+  for (const [date, value] of Object.entries(dateOfBirth)) {
+    if (!value) {
+      errors = { ...errors, [date]: 'This field is required' };
+    }
+  }
+
+  return errors;
+};
+
+export const hasErrors = (validations: Validations) => {
+  return Object.values(validations).some((error) => !!error);
+};
+
+export const cn = (...classes: ClassValue[]) => twMerge(clsx(...classes));

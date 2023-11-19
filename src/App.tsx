@@ -3,12 +3,17 @@ import React, { useState } from 'react';
 import Input from '@/components/Input';
 import SeparatorButton from '@/components/SeparatorButton';
 import AgeCounter from '@/components/AgeCounter';
-import { calculateAge } from './utils';
+import { calculateAge, validateErrors, hasErrors } from '@/utils';
 
 export default function App() {
   const [shouldStartCounter, setShouldStartCounter] = useState(false);
   const [dateOfBirth, setDateOfBirth] = useState({ year: 0, month: 0, day: 0 });
   const [age, setAge] = useState({ years: 0, months: 0, days: 0 });
+  const [errors, setErrors] = useState({
+    year: '',
+    month: '',
+    day: ''
+  });
 
   const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDateOfBirth({
@@ -23,14 +28,18 @@ export default function App() {
       | React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.preventDefault();
-    const { year, month, day } = dateOfBirth;
-    const { ageInDays, ageInMonths, ageInYears } = calculateAge(
-      `${year}-${month}-${day}`
-    );
-
-    // TODO Validation
-    setAge({ years: ageInYears, months: ageInMonths, days: ageInDays });
-    setShouldStartCounter(true);
+    const validations = validateErrors(dateOfBirth);
+    if (!hasErrors(validations)) {
+      const { year, month, day } = dateOfBirth;
+      const { ageInDays, ageInMonths, ageInYears } = calculateAge(
+        `${year}-${month}-${day}`
+      );
+      setAge({ years: ageInYears, months: ageInMonths, days: ageInDays });
+      setShouldStartCounter(true);
+      setErrors({ year: '', month: '', day: '' });
+    } else {
+      setErrors(validations);
+    }
   };
 
   return (
@@ -43,6 +52,7 @@ export default function App() {
             placeholder="DD"
             onChange={handleAgeChange}
             value={dateOfBirth.day || ''}
+            error={errors.day}
           />
           <Input
             id="month"
@@ -50,6 +60,7 @@ export default function App() {
             placeholder="MM"
             onChange={handleAgeChange}
             value={dateOfBirth.month || ''}
+            error={errors.month}
           />
           <Input
             id="year"
@@ -57,6 +68,7 @@ export default function App() {
             placeholder="YYYY"
             onChange={handleAgeChange}
             value={dateOfBirth.year || ''}
+            error={errors.year}
           />
           <input type="submit" className="hidden" />
         </form>
