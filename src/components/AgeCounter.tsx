@@ -30,7 +30,7 @@ export default function AgeCounter({
   }, [shouldStartCounter, resetCounter, start]);
 
   return (
-    <div className="flex gap-2 text-[104px] font-extrabold italic leading-[110%] tracking-[-2.08px]">
+    <div className="flex gap-2 text-[56px] sm:text-[104px] font-extrabold italic leading-[61.6px] sm:leading-[114.4px] tracking-[-1.12px] sm:tracking-[-2.08px]">
       <p className="tabular-nums text-purple" ref={countUpRef}>
         {count || '- -'}
       </p>

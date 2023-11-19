@@ -18,7 +18,7 @@ export default function AgeViewer({
   age
 }: AgeViewerProps) {
   return (
-    <>
+    <div>
       <AgeCounter
         label="years"
         count={age.years}
@@ -37,6 +37,6 @@ export default function AgeViewer({
         shouldStartCounter={shouldStartCounter}
         resetCounter={() => setShouldStartCounter(false)}
       />
-    </>
+    </div>
   );
 }

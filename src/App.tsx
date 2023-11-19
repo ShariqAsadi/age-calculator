@@ -44,8 +44,8 @@ export default function App() {
 
   return (
     <main className="flex h-screen flex-col items-center justify-center bg-light-grey font-body">
-      <section className="flex w-[840px] flex-col rounded-3xl rounded-br-[200px] bg-white p-14">
-        <form onSubmit={handleFormSubmit} className="flex gap-8">
+      <section className="flex max-w-[350px] sm:max-w-none sm:w-[840px] flex-col rounded-3xl rounded-br-[100px] sm:rounded-br-[200px] bg-white px-6 py-12 sm:p-14 gap-8 sm:gap-0">
+        <form onSubmit={handleFormSubmit} className="flex gap-4 sm:gap-8">
           <AgeInput
             dateOfBirth={dateOfBirth}
             errors={errors}
